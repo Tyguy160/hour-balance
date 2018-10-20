@@ -1,0 +1,25 @@
+.dayComponent {
+  color: white;
+  border-radius: 5px;
+  border: 1px solid white;
+  max-width: 500px;
+  display: inline-block;
+  height: 400px;
+  padding: 20px;
+}
+
+button {
+  background-color: transparent;
+  outline-style: none;
+  border-radius: 5px;
+  outline-style: none;
+  color: white;
+}
+
+input {
+  background-color: transparent;
+  outline-style: none;
+  border: none;
+  font-size: 1em;
+  color: white;
+}
