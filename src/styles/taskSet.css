@@ -1,0 +1,21 @@
+.taskSet {
+  margin: 10px 0px 10px 0px;
+  padding: 10px;
+  /* border: 1px solid white; */
+  display: grid;
+  grid-template-columns: 0.6fr 0.4fr;
+  grid-gap: 20px;
+  justify-items: center;
+  background-color: transparent;
+}
+
+.taskSet > input {
+  outline-style: none;
+  /* border: 1px solid white; */
+  border: none;
+  font-size: 1em;
+  background-color: transparent;
+  width: 100%;
+  color: white;
+  padding: 0px;
+}
