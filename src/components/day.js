@@ -1,22 +1,45 @@
 import React from "react";
+import moment from "moment";
+import TimePicker from "rc-time-picker";
+import TaskSet from "./taskSet";
 import "../styles/day.css";
+import "rc-time-picker/assets/index.css";
 
-const Day = () => {
+const Day = props => {
   return (
     <div className="dayComponent">
-      Day Component
-      <div>Monday</div>
-      <form>
-        <div className="taskSet">
-          <input type="textbox" value="Sleep" />
-          <input type="time" placeholder="10:00 PM" />
-          <input type="time" placeholder="Wakeup time" />
+      <div className="dayTitle">{props.day}</div>
+      <div className="tasks">
+        <div className="sleepInput">
+          <span>Wakeup Time</span>
+          <TimePicker
+            showSecond={false}
+            defaultValue={moment()
+              .hour(0)
+              .minute(0)}
+            className="timePicker"
+            format={"h:mm a"}
+            use12Hours
+            inputReadOnly
+          />
         </div>
-        <div className="taskSet">
-          <input type="textbox" placeholder="Task" />
-          <input type="textbox" placeholder="Time taken" />
+        <TaskSet />
+        <TaskSet />
+        <TaskSet />
+        <div className="sleepInput">
+          Bedtime
+          <TimePicker
+            showSecond={false}
+            defaultValue={moment()
+              .hour(0)
+              .minute(0)}
+            className="timePicker"
+            format={"h:mm a"}
+            use12Hours
+            inputReadOnly
+          />
         </div>
-      </form>
+      </div>
       <button>+</button>
     </div>
   );
