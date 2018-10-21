@@ -9,7 +9,13 @@ class App extends Component {
     return (
       <div className="App">
         {/* <header className="App-header">Hour Balance</header> */}
-        <Day />
+        <Day day={"Sunday"} />
+        {/* <Day day={"Monday"} /> */}
+        {/* <Day day={"Tuesday"} /> */}
+        {/* <Day day={"Wednesday"} /> */}
+        {/* <Day day={"Thursday"} /> */}
+        {/* <Day day={"Friday"} /> */}
+        {/* <Day day={"Saturday"} /> */}
       </div>
     );
   }
