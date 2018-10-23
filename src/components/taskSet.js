@@ -20,7 +20,7 @@ const TaskSet = props => {
             props.addTask(e);
           }
         }}
-        // value={props.taskName}
+        onChange={e => props.updateTaskDescription(e, props.taskID)}
       />
       <div className="timeInputContainer">
         <input
@@ -34,7 +34,7 @@ const TaskSet = props => {
               props.addTask(e);
             }
           }}
-          // value={props.taskTime + " " + props.taskTimeUnit}
+          onChange={e => props.updateTaskTime(e, props.taskID)}
         />
         <select className="timeUnit">
           <option value="min">mins</option>

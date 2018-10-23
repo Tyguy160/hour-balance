@@ -27,7 +27,9 @@ class Day extends Component {
     };
 
     this.addTask = this.addTask.bind(this);
-    this.updateTask = this.updateTask.bind(this);
+    this.updateTaskDescription = this.updateTaskDescription.bind(this);
+    this.updateTaskTime = this.updateTaskTime.bind(this);
+    this.updateTaskTimeUnit = this.updateTaskTimeUnit.bind(this);
     this.updateSleeps = this.updateSleeps.bind(this);
   }
 
@@ -47,8 +49,28 @@ class Day extends Component {
     );
   }
 
-  updateTask(e, TaskID) {
-    console.log(e, TaskID);
+  updateTaskDescription(e, taskID) {
+    console.log(e.target.value, taskID);
+    const updatedTask = e.target.value;
+    this.setState({
+      tasks: {
+        // ...this.state.tasks,
+        // [taskID]: [
+        //   {
+        //     ...this.state.tasks[taskID],
+        //     taskName: updatedTask
+        //   }
+        // ]
+      }
+    });
+  }
+
+  updateTaskTime(e, taskID) {
+    console.log(e.target.value, taskID);
+  }
+
+  updateTaskTimeUnit(e, taskID) {
+    console.log(e.target.value, taskID);
   }
 
   // Updates the wake up or bed time based
@@ -87,10 +109,14 @@ class Day extends Component {
           {this.state.tasks.map((task, index) => (
             <TaskSet
               key={index}
+              taskID={index}
               taskName={task.taskName}
               taskTime={task.taskTime}
               taskTimeUnit={task.taskTimeUnit}
               addTask={this.addTask}
+              updateTaskDescription={this.updateTaskDescription}
+              updateTaskTime={this.updateTaskTime}
+              updateTaskTimeUnit={this.updateTaskTimeUnit}
             />
           ))}
           <div className="sleepInput">
