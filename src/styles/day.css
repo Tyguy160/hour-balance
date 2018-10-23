@@ -2,16 +2,23 @@
   color: white;
   border-radius: 5px;
   border: 1px solid white;
-  width: 300px;
+  width: 325px;
   display: inline-block;
-  height: 400px;
-  padding: 20px;
+  /* height: 500px; */
   margin: 20px;
+  padding: 10px;
+  /* display: grid;
+  justify-items: center; */
+}
+.tasks {
+  overflow: scroll;
+  padding: 10px;
+  height: 75%;
 }
 
 .dayTitle {
   font-size: 1.5em;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 .sleepInput {
@@ -23,7 +30,7 @@
   padding: 10px;
 }
 
-button {
+/* button {
   background-color: transparent;
   outline-style: none;
   border-radius: 5px;
@@ -31,5 +38,9 @@ button {
   color: white;
   height: 30px;
   width: 30px;
-  margin: 40px;
+  margin: 20px;
+} */
+
+.balance {
+  font-size: 1.5em;
 }
