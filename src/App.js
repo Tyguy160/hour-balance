@@ -10,12 +10,12 @@ class App extends Component {
       <div className="App">
         {/* <header className="App-header">Hour Balance</header> */}
         <Day day={"Sunday"} />
-        {/* <Day day={"Monday"} /> */}
-        {/* <Day day={"Tuesday"} /> */}
-        {/* <Day day={"Wednesday"} /> */}
-        {/* <Day day={"Thursday"} /> */}
-        {/* <Day day={"Friday"} /> */}
-        {/* <Day day={"Saturday"} /> */}
+        <Day day={"Monday"} />
+        <Day day={"Tuesday"} />
+        <Day day={"Wednesday"} />
+        <Day day={"Thursday"} />
+        <Day day={"Friday"} />
+        <Day day={"Saturday"} />
       </div>
     );
   }
