@@ -23,7 +23,8 @@ class Day extends Component {
       ],
       bedTime: moment()
         .hour(22)
-        .minute(0)
+        .minute(0),
+      totalTime: 0
     };
 
     this.addTask = this.addTask.bind(this);
@@ -31,6 +32,7 @@ class Day extends Component {
     this.updateTaskTime = this.updateTaskTime.bind(this);
     this.updateTaskTimeUnit = this.updateTaskTimeUnit.bind(this);
     this.updateSleeps = this.updateSleeps.bind(this);
+    this.updateTotalTime = this.updateTotalTime.bind(this);
   }
 
   addTask(e) {
@@ -59,21 +61,29 @@ class Day extends Component {
   }
 
   updateTaskTime(e, taskID) {
-    console.log(e.target.value, taskID);
     let updatedTask = JSON.parse(JSON.stringify(this.state.tasks));
-    updatedTask[taskID].taskTime = e.target.value;
-    this.setState({
-      tasks: [...updatedTask]
-    });
+    updatedTask[taskID].taskTime = e.target.value ? e.target.value : 0;
+    this.setState(
+      {
+        tasks: [...updatedTask]
+      },
+      () => {
+        this.updateTotalTime();
+      }
+    );
   }
 
   updateTaskTimeUnit(e, taskID) {
-    console.log(e.target.value, taskID);
     let updatedTask = JSON.parse(JSON.stringify(this.state.tasks));
     updatedTask[taskID].taskTimeUnit = e.target.value;
-    this.setState({
-      tasks: [...updatedTask]
-    });
+    this.setState(
+      {
+        tasks: [...updatedTask]
+      },
+      () => {
+        this.updateTotalTime();
+      }
+    );
   }
 
   // Updates the wake up or bed time based
@@ -85,6 +95,21 @@ class Day extends Component {
       [`${type}`]: moment()
         .hour(hr)
         .minute(min)
+    });
+  }
+
+  // Update state with new total time, then use the
+  // total time in the balance equation
+  updateTotalTime() {
+    let totalTime = 0;
+    this.state.tasks.map(
+      task =>
+        task.taskTimeUnit === "hour"
+          ? (totalTime += parseInt(task.taskTime))
+          : (totalTime += parseInt(task.taskTime) / 60)
+    );
+    this.setState({
+      totalTime: totalTime
     });
   }
 
@@ -136,7 +161,13 @@ class Day extends Component {
           </div>
         </div>
         <hr />
-        <div className="balance">{`24 - ${8} = ${24 - 8}`}</div>
+        <div className="balance">
+          {`24.00`}
+          <br />
+          {`${this.state.totalTime.toFixed(2)}`}
+          <br />
+          {`${(24 - this.state.totalTime).toFixed(2)}`}
+        </div>
       </div>
     );
   }
