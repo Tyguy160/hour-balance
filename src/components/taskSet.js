@@ -36,7 +36,9 @@ const TaskSet = props => {
           }}
           onChange={e => props.updateTaskTime(e, props.taskID)}
         />
-        <select className="timeUnit">
+        <select
+          className="timeUnit"
+          onChange={e => props.updateTaskTimeUnit(e, props.taskID)}>
           <option value="min">mins</option>
           <option value="hour">hrs</option>
         </select>

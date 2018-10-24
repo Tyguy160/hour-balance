@@ -18,7 +18,7 @@ class Day extends Component {
         {
           taskName: "",
           taskTime: "",
-          taskTimeUnit: ""
+          taskTimeUnit: "min"
         }
       ],
       bedTime: moment()
@@ -41,7 +41,7 @@ class Day extends Component {
           {
             taskName: "",
             taskTime: "",
-            taskTimeUnit: ""
+            taskTimeUnit: "min"
           }
         ]
       },
@@ -50,27 +50,30 @@ class Day extends Component {
   }
 
   updateTaskDescription(e, taskID) {
-    console.log(e.target.value, taskID);
-    const updatedTask = e.target.value;
+    // console.log(e.target.value, taskID);
+    let updatedTask = JSON.parse(JSON.stringify(this.state.tasks));
+    updatedTask[taskID].taskName = e.target.value;
     this.setState({
-      tasks: {
-        // ...this.state.tasks,
-        // [taskID]: [
-        //   {
-        //     ...this.state.tasks[taskID],
-        //     taskName: updatedTask
-        //   }
-        // ]
-      }
+      tasks: [...updatedTask]
     });
   }
 
   updateTaskTime(e, taskID) {
     console.log(e.target.value, taskID);
+    let updatedTask = JSON.parse(JSON.stringify(this.state.tasks));
+    updatedTask[taskID].taskTime = e.target.value;
+    this.setState({
+      tasks: [...updatedTask]
+    });
   }
 
   updateTaskTimeUnit(e, taskID) {
     console.log(e.target.value, taskID);
+    let updatedTask = JSON.parse(JSON.stringify(this.state.tasks));
+    updatedTask[taskID].taskTimeUnit = e.target.value;
+    this.setState({
+      tasks: [...updatedTask]
+    });
   }
 
   // Updates the wake up or bed time based
