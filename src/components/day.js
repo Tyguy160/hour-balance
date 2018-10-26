@@ -13,18 +13,22 @@ class Day extends Component {
       day: props.day,
       wakeupTime: moment()
         .hour(6)
-        .minute(0),
+        .minute(0)
+        .second(0)
+        .millisecond(0),
       tasks: [
         {
           taskName: "",
-          taskTime: "",
+          taskTime: "0",
           taskTimeUnit: "min"
         }
       ],
       bedTime: moment()
         .hour(22)
-        .minute(0),
-      totalTime: 0
+        .minute(0)
+        .second(0)
+        .millisecond(0),
+      totalTime: 8
     };
 
     this.addTask = this.addTask.bind(this);
@@ -36,19 +40,16 @@ class Day extends Component {
   }
 
   addTask(e) {
-    this.setState(
-      {
-        tasks: [
-          ...this.state.tasks,
-          {
-            taskName: "",
-            taskTime: "",
-            taskTimeUnit: "min"
-          }
-        ]
-      },
-      () => console.log("Added new task")
-    );
+    this.setState({
+      tasks: [
+        ...this.state.tasks,
+        {
+          taskName: "",
+          taskTime: "0",
+          taskTimeUnit: "min"
+        }
+      ]
+    });
   }
 
   updateTaskDescription(e, taskID) {
@@ -91,23 +92,52 @@ class Day extends Component {
   updateSleeps(e, type) {
     let hr = e._d.getHours();
     let min = e._d.getMinutes();
-    this.setState({
-      [`${type}`]: moment()
-        .hour(hr)
-        .minute(min)
-    });
+    this.setState(
+      {
+        [`${type}`]: moment()
+          .hour(hr)
+          .minute(min)
+          .second(0)
+          .millisecond(0)
+      },
+      () => {
+        this.updateTotalTime();
+      }
+    );
   }
 
   // Update state with new total time, then use the
   // total time in the balance equation
   updateTotalTime() {
     let totalTime = 0;
+
+    // Add time from tasks
     this.state.tasks.map(
       task =>
         task.taskTimeUnit === "hour"
-          ? (totalTime += parseInt(task.taskTime))
-          : (totalTime += parseInt(task.taskTime) / 60)
+          ? (totalTime += parseFloat(task.taskTime))
+          : (totalTime += parseFloat(task.taskTime) / 60)
     );
+
+    // Add time from sleeping
+    totalTime +=
+      this.state.wakeupTime.diff(
+        moment()
+          .hour(0)
+          .minute(0)
+          .second(0)
+          .millisecond(0),
+        "minutes"
+      ) / 60;
+
+    totalTime +=
+      moment()
+        .hour(24)
+        .minute(0)
+        .second(0)
+        .millisecond(0)
+        .diff(this.state.bedTime, "minutes") / 60;
+
     this.setState({
       totalTime: totalTime
     });
@@ -162,11 +192,15 @@ class Day extends Component {
         </div>
         <hr />
         <div className="balance">
-          {`24.00`}
+          <span>Total: </span>
+          <span>{`24.00`}</span>
           <br />
-          {`${this.state.totalTime.toFixed(2)}`}
-          <br />
-          {`${(24 - this.state.totalTime).toFixed(2)}`}
+          <span>Consumed: </span>
+          <span>{`(${this.state.totalTime.toFixed(2)})`}</span>
+          <hr />
+          <hr />
+          <span>Remaining: </span>
+          <span>{`${(24 - this.state.totalTime).toFixed(2)}`}</span>
         </div>
       </div>
     );
